@@ -33,7 +33,6 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.ReplaySubject;
 import io.reactivex.subjects.Subject;
-import io.reactivex.subjects.UnicastSubject;
 
 /**
  * This type of presenter is responsible for interaction with the viewState in a Model-View-Intent way.
@@ -450,7 +449,8 @@ public abstract class MviBasePresenter<V extends MvpView, VS> implements MviPres
      */
     @MainThread
     protected <I> Observable<I> intent(ViewIntentBinder<V, I> binder) {
-        Subject<I> intentRelay = UnicastSubject.create();
+        Subject<I> intentRelay = ReplaySubject.create();
+//        Subject<I> intentRelay = UnicastSubject.create();
         intentRelaysBinders.add(new IntentRelayBinderPair<I>(intentRelay, binder));
         return intentRelay;
     }
