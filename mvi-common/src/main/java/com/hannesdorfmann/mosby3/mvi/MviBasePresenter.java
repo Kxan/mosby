@@ -450,7 +450,8 @@ public abstract class MviBasePresenter<V extends MvpView, VS> implements MviPres
      */
     @MainThread
     protected <I> Observable<I> intent(ViewIntentBinder<V, I> binder) {
-        Subject<I> intentRelay = UnicastSubject.create();
+        //Subject<I> intentRelay = UnicastSubject.create();
+        Subject<I> intentRelay = ReplaySubject.create();
         intentRelaysBinders.add(new IntentRelayBinderPair<I>(intentRelay, binder));
         return intentRelay;
     }
